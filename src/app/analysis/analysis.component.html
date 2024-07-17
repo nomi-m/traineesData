@@ -1,0 +1,14 @@
+<div>
+  <app-data-filter 
+    [fromAnalysisPage]="true"
+    (filtersApplied)="applyFilters($event)" 
+    (filtersReset)="resetFilters()">
+  </app-data-filter>
+
+  <div cdkDropList class="charts-container" (cdkDropListDropped)="drop($event)">
+    <div class="chart half-width" *ngFor="let chart of visibleCharts; let i = index" cdkDrag [cdkDragData]="chart.id">
+        <p>{{chart.title}}</p>
+        <canvas [id]="chart.id"></canvas>
+    </div>
+  </div>
+  

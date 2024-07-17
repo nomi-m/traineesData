@@ -1,0 +1,21 @@
+.data-body {
+  display: flex;
+  flex-direction: row;
+  .trainee-details {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.data-table {
+  margin: 20px;
+}
+  
+.mat-table {
+  width: 100%;
+}
+  
+.mat-header-cell, .mat-cell {
+  padding: 8px;
+}
+  

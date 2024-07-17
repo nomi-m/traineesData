@@ -1,0 +1,65 @@
+<div class="filter-container">
+  <h3>Filters:</h3>
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filter-form">
+    <!-- פילטר IDS -->
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>IDs:</mat-label>
+      <mat-select formControlName="ids" multiple>
+        <mat-option *ngFor="let trainee of trainees" [value]="trainee.id">{{ trainee.id }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    @if(fromAnalysisPage) {
+      <!-- פילטר SUBJECTS -->
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Subjects:</mat-label>
+        <mat-select formControlName="subjects" multiple>
+          <mat-option *ngFor="let trainee of trainees" [value]="trainee.subject">{{ trainee.subject }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    }
+     @if(fromMonitorPage) {
+      <!-- פילטר PASSED/FAILED -->
+      <mat-checkbox formControlName="showPassed">Passed</mat-checkbox>
+      <mat-checkbox formControlName="showFailed">Failed</mat-checkbox>
+     }
+    @if(!fromMonitorPage && !fromAnalysisPage) {
+      <!-- פילטר NAME -->
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Name:</mat-label>
+        <input matInput formControlName="name" placeholder="Search by Name" />
+      </mat-form-field>
+      <!-- פילטר DATE -->
+      <div class="date-filter">
+        <mat-form-field appearance="fill" class="filter-field">
+          <mat-label>Date From:</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="dateFrom" placeholder="Choose a date" />
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="filter-field">
+          <mat-label>Date To:</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dateTo" placeholder="Choose a date" />
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- פילטר GRADE -->
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Grade Min:</mat-label>
+        <input matInput type="number" formControlName="gradeMin" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Grade Max:</mat-label>
+        <input matInput type="number" formControlName="gradeMax" />
+      </mat-form-field>
+      <!-- פילטר SUBJECT -->
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Subject:</mat-label>
+        <input matInput formControlName="subject" placeholder="Search by Subject" />
+      </mat-form-field>
+    }
+  
+    <button type="submit" mat-raised-button color="primary" [disabled]="!hasChanged(filterForm)">Apply Filters</button>
+    <button type="button" mat-raised-button color="warn" (click)="resetFilters()">Reset Filters</button>
+  </form>
+</div>
